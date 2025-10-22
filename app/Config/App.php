@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    public string $baseURL = 'http://localhost/MIdExam/';
+    public string $baseURL = 'http://localhost/MIdExam/public/';
     public string $indexPage = '';
     public string $uriProtocol = 'REQUEST_URI';
     public string $defaultLocale = 'en';

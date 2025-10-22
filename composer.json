@@ -2,16 +2,16 @@
     "name": "rmmc/student-portal",
     "description": "Online Student Portal - Midterm Examination Project",
     "type": "project",
-    "homepage": "https://github.com/codeigniter4/CodeIgniter4",
+    "homepage": "https://github.com/amariryljade-maker/MidExam",
     "license": "MIT",
     "require": {
         "php": "^7.4 || ^8.0",
         "codeigniter4/framework": "^4.4"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9",
+        "fakerphp/faker": "^1.23",
         "mikey179/vfsstream": "^1.6",
-        "phpunit/phpunit": "^9.1"
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
@@ -28,12 +28,17 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "post-update-cmd": [
+            "@composer dump-autoload"
+        ]
     },
     "support": {
         "forum": "http://forum.codeigniter.com/",
         "source": "https://github.com/codeigniter4/CodeIgniter4",
         "slack": "https://codeigniterchat.slack.com"
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
 
