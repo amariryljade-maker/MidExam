@@ -5,10 +5,12 @@ namespace Config;
 use CodeIgniter\Modules\Modules as BaseModules;
 
 /**
- * Modules Configuration file.
+ * Modules Configuration.
  *
- * Provides a location where you can set the namespace
- * for the public directory of modules for CodeIgniter 4.0+.
+ * NOTE: This class is required prior to Autoloader instantiation,
+ *       and does not extend BaseConfig.
+ *
+ * @immutable
  */
 class Modules extends BaseModules
 {
@@ -18,7 +20,7 @@ class Modules extends BaseModules
      * --------------------------------------------------------------------------
      *
      * If true, then auto-discovery will happen across all elements listed in
-     * $activeExplorers below. If false, no auto-discovery will happen at all,
+     * $aliases below. If false, no auto-discovery will happen at all,
      * giving a slight performance boost.
      *
      * @var bool
@@ -38,15 +40,39 @@ class Modules extends BaseModules
     public $discoverInComposer = true;
 
     /**
+     * The Composer package list for Auto-Discovery
+     * This setting is optional.
+     *
+     * E.g.:
+     *   [
+     *       'only' => [
+     *           // List up all packages to auto-discover
+     *           'codeigniter4/shield',
+     *       ],
+     *   ]
+     *   or
+     *   [
+     *       'exclude' => [
+     *           // List up packages to exclude.
+     *           'pestphp/pest',
+     *       ],
+     *   ]
+     *
+     * @var array{only?: list<string>, exclude?: list<string>}
+     */
+    public $composerPackages = [];
+
+    /**
      * --------------------------------------------------------------------------
      * Auto-Discovery Rules
      * --------------------------------------------------------------------------
      *
      * Aliases list of all discovery classes that will be active and used during
-     * the current application request. If it is not listed here, only the base
-     * application elements will be used.
+     * the current application request.
      *
-     * @var string[]
+     * If it is not listed, only the base application elements will be used.
+     *
+     * @var list<string>
      */
     public $aliases = [
         'events',
@@ -56,4 +82,3 @@ class Modules extends BaseModules
         'services',
     ];
 }
-

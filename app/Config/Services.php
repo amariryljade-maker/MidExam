@@ -12,14 +12,10 @@ use CodeIgniter\Config\BaseService;
  * framework to be swapped out easily without affecting the usage within
  * the rest of your application.
  *
- * This is used in place of a Dependency Injection container primarily
- * due to its simplicity, which allows a better long-term maintenance
- * of the applications built on top of CodeIgniter. A bonus side-effect
- * is that IDEs are able to determine what class you are calling
- * whereas with DI Containers there usually isn't a way for them to do this.
- *
- * @see http://blog.ircmaxell.com/2015/11/simple-easy-risk-and-change.html
- * @see http://www.infoq.com/presentations/Simple-Made-Easy
+ * This file holds any application-specific services, or service overrides
+ * that you might need. An example has been included with the general
+ * method format you should use for your service methods. For more examples,
+ * see the core Services file at system/Config/Services.php.
  */
 class Services extends BaseService
 {
@@ -34,4 +30,3 @@ class Services extends BaseService
      * }
      */
 }
-

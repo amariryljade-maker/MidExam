@@ -5,7 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-
 // Default route
 $routes->get('/', 'Auth::login');
 
@@ -20,17 +19,16 @@ $routes->get('logout', 'Auth::logout');
 $routes->get('announcements', 'Announcement::index', ['filter' => 'auth']);
 
 // Admin routes - protected by RoleAuth filter
-$routes->group('admin', ['filter' => 'roleauth'], function($routes) {
+$routes->group('admin', ['filter' => 'roleauth'], static function ($routes) {
     $routes->get('dashboard', 'Admin::dashboard');
 });
 
 // Teacher routes - protected by RoleAuth filter
-$routes->group('teacher', ['filter' => 'roleauth'], function($routes) {
+$routes->group('teacher', ['filter' => 'roleauth'], static function ($routes) {
     $routes->get('dashboard', 'Teacher::dashboard');
 });
 
 // Student routes - protected by RoleAuth filter
-$routes->group('student', ['filter' => 'roleauth'], function($routes) {
+$routes->group('student', ['filter' => 'roleauth'], static function ($routes) {
     $routes->get('dashboard', 'Student::dashboard');
 });
-

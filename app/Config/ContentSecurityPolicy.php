@@ -15,174 +15,162 @@ use CodeIgniter\Config\BaseConfig;
  */
 class ContentSecurityPolicy extends BaseConfig
 {
-    /**
-     * --------------------------------------------------------------------------
-     * Broadbrush CSP management
-     * --------------------------------------------------------------------------
-     */
+    // -------------------------------------------------------------------------
+    // Broadbrush CSP management
+    // -------------------------------------------------------------------------
 
     /**
      * Default CSP report context
-     *
-     * @var bool
      */
-    public $reportOnly = false;
+    public bool $reportOnly = false;
 
     /**
-     * Specifies a URL where a browser will send reports when a content security policy is violated.
-     *
-     * @var string|null
+     * Specifies a URL where a browser will send reports
+     * when a content security policy is violated.
      */
-    public $reportURI;
+    public ?string $reportURI = null;
 
     /**
-     * Instructs user agents to rewrite URL schemes, changing HTTP to HTTPS. This directive is for websites with
+     * Instructs user agents to rewrite URL schemes, changing
+     * HTTP to HTTPS. This directive is for websites with
      * large numbers of old URLs that need to be rewritten.
-     *
-     * @var bool
      */
-    public $upgradeInsecureRequests = false;
+    public bool $upgradeInsecureRequests = false;
+
+    // -------------------------------------------------------------------------
+    // Sources allowed
+    // NOTE: once you set a policy to 'none', it cannot be further restricted
+    // -------------------------------------------------------------------------
 
     /**
-     * --------------------------------------------------------------------------
-     * Sources allowed
-     * --------------------------------------------------------------------------
-     * Each of the following holds an array of allowed sources for the indicated
-     * type of data. For instance, if you want to allow images to be loaded from
-     * your own domain as well as from example.com, then you would write:
+     * Will default to self if not overridden
      *
-     *  $images = ['self', 'example.com'];
-     *
-     * The following types are available:
-     *
-     *  - baseURI
-     *  - childSrc
-     *  - connectSrc
-     *  - defaultSrc
-     *  - fontSrc
-     *  - formAction
-     *  - frameAncestors
-     *  - frameSrc
-     *  - imgSrc
-     *  - mediaSrc
-     *  - objectSrc
-     *  - pluginTypes
-     *  - reportURI
-     *  - sandbox
-     *  - scriptSrc
-     *  - styleSrc
-     */
-
-    /**
-     * Default source
-     *
-     * @var array<string>|string|null
+     * @var list<string>|string|null
      */
     public $defaultSrc;
 
     /**
-     * Script source
+     * Lists allowed scripts' URLs.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $scriptSrc;
+    public $scriptSrc = 'self';
 
     /**
-     * Style source
+     * Lists allowed stylesheets' URLs.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $styleSrc;
+    public $styleSrc = 'self';
 
     /**
-     * Image source
+     * Defines the origins from which images can be loaded.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $imgSrc;
+    public $imageSrc = 'self';
 
     /**
-     * Base URI
+     * Restricts the URLs that can appear in a page's `<base>` element.
      *
-     * @var array<string>|string|null
+     * Will default to self if not overridden
+     *
+     * @var list<string>|string|null
      */
     public $baseURI;
 
     /**
-     * Child source
+     * Lists the URLs for workers and embedded frame contents
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $childSrc;
+    public $childSrc = 'self';
 
     /**
-     * Connect source
+     * Limits the origins that you can connect to (via XHR,
+     * WebSockets, and EventSource).
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $connectSrc;
+    public $connectSrc = 'self';
 
     /**
-     * Font source
+     * Specifies the origins that can serve web fonts.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
     public $fontSrc;
 
     /**
-     * Form action
+     * Lists valid endpoints for submission from `<form>` tags.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $formAction;
+    public $formAction = 'self';
 
     /**
-     * Frame ancestors
+     * Specifies the sources that can embed the current page.
+     * This directive applies to `<frame>`, `<iframe>`, `<embed>`,
+     * and `<applet>` tags. This directive can't be used in
+     * `<meta>` tags and applies only to non-HTML resources.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string|null
      */
     public $frameAncestors;
 
     /**
-     * Frame source
+     * The frame-src directive restricts the URLs which may
+     * be loaded into nested browsing contexts.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string|null
      */
     public $frameSrc;
 
     /**
-     * Media source
+     * Restricts the origins allowed to deliver video and audio.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string|null
      */
     public $mediaSrc;
 
     /**
-     * Object source
+     * Allows control over Flash and other plugins.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string
      */
-    public $objectSrc;
+    public $objectSrc = 'self';
 
     /**
-     * Plugin types
-     *
-     * @var array<string>|string|null
-     */
-    public $pluginTypes;
-
-    /**
-     * Manifest source
-     *
-     * @var array<string>|string|null
+     * @var list<string>|string|null
      */
     public $manifestSrc;
 
     /**
-     * Sandbox
+     * Limits the kinds of plugins a page may invoke.
      *
-     * @var array<string>|string|null
+     * @var list<string>|string|null
+     */
+    public $pluginTypes;
+
+    /**
+     * List of actions allowed.
+     *
+     * @var list<string>|string|null
      */
     public $sandbox;
-}
 
+    /**
+     * Nonce tag for style
+     */
+    public string $styleNonceTag = '{csp-style-nonce}';
+
+    /**
+     * Nonce tag for script
+     */
+    public string $scriptNonceTag = '{csp-script-nonce}';
+
+    /**
+     * Replace nonce tag automatically
+     */
+    public bool $autoNonce = true;
+}

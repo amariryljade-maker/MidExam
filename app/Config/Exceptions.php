@@ -3,6 +3,10 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Debug\ExceptionHandler;
+use CodeIgniter\Debug\ExceptionHandlerInterface;
+use Psr\Log\LogLevel;
+use Throwable;
 
 /**
  * Setup how the exception handler works.
@@ -13,11 +17,12 @@ class Exceptions extends BaseConfig
      * --------------------------------------------------------------------------
      * LOG EXCEPTIONS?
      * --------------------------------------------------------------------------
-     * If true, then exceptions will be logged through Services::Log.
+     * If true, then exceptions will be logged
+     * through Services::Log.
      *
-     * @var bool
+     * Default: true
      */
-    public $log = true;
+    public bool $log = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -28,7 +33,7 @@ class Exceptions extends BaseConfig
      *
      * @var list<int>
      */
-    public $ignoreCodes = [404];
+    public array $ignoreCodes = [404];
 
     /**
      * --------------------------------------------------------------------------
@@ -37,9 +42,9 @@ class Exceptions extends BaseConfig
      * This is the path to the directory that contains the 'cli' and 'html'
      * directories that hold the views used to generate errors.
      *
-     * @var string
+     * Default: APPPATH.'Views/errors'
      */
-    public $errorViewPath = APPPATH . 'Views/errors';
+    public string $errorViewPath = APPPATH . 'Views/errors';
 
     /**
      * --------------------------------------------------------------------------
@@ -51,27 +56,53 @@ class Exceptions extends BaseConfig
      *
      * @var list<string>
      */
-    public $sensitiveDataInTrace = [];
+    public array $sensitiveDataInTrace = [];
 
     /**
      * --------------------------------------------------------------------------
-     * Log Deprecations Instead of Throwing?
+     * LOG DEPRECATIONS INSTEAD OF THROWING?
      * --------------------------------------------------------------------------
-     * By default, CodeIgniter converts deprecations into exceptions. If you
-     * would prefer to log them instead, set this to true.
-     *
-     * @var bool
+     * By default, CodeIgniter converts deprecations into exceptions. Also,
+     * starting in PHP 8.1 will cause a lot of deprecated usage warnings.
+     * Use this option to temporarily cease the warnings and instead log those.
+     * This option also works for user deprecations.
      */
-    public $logDeprecations = false;
+    public bool $logDeprecations = true;
 
     /**
      * --------------------------------------------------------------------------
-     * Deprecation Log Level
+     * LOG LEVEL THRESHOLD FOR DEPRECATIONS
      * --------------------------------------------------------------------------
-     * If $logDeprecations is true, this sets the log level to use for deprecations.
+     * If `$logDeprecations` is set to `true`, this sets the log level
+     * to which the deprecation will be logged. This should be one of the log
+     * levels recognized by PSR-3.
      *
-     * @var string
+     * The related `Config\Logger::$threshold` should be adjusted, if needed,
+     * to capture logging the deprecations.
      */
-    public $deprecationLogLevel = 'warning';
+    public string $deprecationLogLevel = LogLevel::WARNING;
+
+    /*
+     * DEFINE THE HANDLERS USED
+     * --------------------------------------------------------------------------
+     * Given the HTTP status code, returns exception handler that
+     * should be used to deal with this error. By default, it will run CodeIgniter's
+     * default handler and display the error information in the expected format
+     * for CLI, HTTP, or AJAX requests, as determined by is_cli() and the expected
+     * response format.
+     *
+     * Custom handlers can be returned if you want to handle one or more specific
+     * error codes yourself like:
+     *
+     *      if (in_array($statusCode, [400, 404, 500])) {
+     *          return new \App\Libraries\MyExceptionHandler();
+     *      }
+     *      if ($exception instanceOf PageNotFoundException) {
+     *          return new \App\Libraries\MyExceptionHandler();
+     *      }
+     */
+    public function handler(int $statusCode, Throwable $exception): ExceptionHandlerInterface
+    {
+        return new ExceptionHandler($this);
+    }
 }
-

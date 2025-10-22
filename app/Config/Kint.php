@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use CodeIgniter\Config\BaseConfig;
 use Kint\Parser\ConstructablePluginInterface;
 use Kint\Renderer\AbstractRenderer;
 use Kint\Renderer\Rich\TabPluginInterface;
@@ -12,14 +13,12 @@ use Kint\Renderer\Rich\ValuePluginInterface;
  * Kint
  * --------------------------------------------------------------------------
  *
- * We use Kint's RichRenderer & ConsoleRenderer which are available after
- * downloading the vendor folder. If we do not have Kint in our vendor
- * folder, we use the dummy class defined in `app/Config/Kint.php` that
- * does nothing.
+ * We use Kint's `RichRenderer` and `CLIRenderer`. This area contains options
+ * that you can set to customize how Kint works for you.
  *
- * @see https://kint-php.github.io/kint/ for documentation
+ * @see https://kint-php.github.io/kint/ for details on these settings.
  */
-class Kint
+class Kint extends BaseConfig
 {
     /*
     |--------------------------------------------------------------------------
@@ -28,126 +27,40 @@ class Kint
     */
 
     /**
-     * @var array<string, mixed>
+     * @var list<class-string<ConstructablePluginInterface>|ConstructablePluginInterface>|null
      */
-    public $globals = [
-        'Kint\\Renderer\\Rich\\' => [
-            'theme' => 'aante-light.css',
-        ],
-    ];
+    public $plugins;
 
-    /**
-     * --------------------------------------------------------------------------
-     * Max Depth
-     * --------------------------------------------------------------------------
-     *
-     * The maximum depth Kint will traverse into nested variables.
-     *
-     * @var int
-     */
-    public $maxDepth = 6;
-
-    /**
-     * --------------------------------------------------------------------------
-     * Display Called From
-     * --------------------------------------------------------------------------
-     *
-     * Whether to display where Kint was called from.
-     *
-     * @var bool
-     */
-    public $displayCalledFrom = true;
-
-    /**
-     * --------------------------------------------------------------------------
-     * Expanded
-     * --------------------------------------------------------------------------
-     *
-     * Whether Kint's output should be expanded by default.
-     *
-     * @var bool
-     */
-    public $expanded = false;
-
-    /**
-     * --------------------------------------------------------------------------
-     * Rich Theme
-     * --------------------------------------------------------------------------
-     *
-     * The theme to use for Kint's rich renderer.
-     *
-     * @var string
-     */
-    public $richTheme = 'aante-light.css';
-
-    /**
-     * --------------------------------------------------------------------------
-     * Rich Folder
-     * --------------------------------------------------------------------------
-     *
-     * Whether to show the folder icon in rich mode.
-     *
-     * @var bool
-     */
-    public $richFolder = false;
-
-    /**
-     * --------------------------------------------------------------------------
-     * Rich Sort
-     * --------------------------------------------------------------------------
-     *
-     * Sort mode for rich renderer.
-     *
-     * @var int
-     */
-    public $richSort = 0;
-
-    /**
-     * --------------------------------------------------------------------------
-     * CLI Colors
-     * --------------------------------------------------------------------------
-     *
-     * Whether to use colors in CLI mode.
-     *
-     * @var bool
-     */
-    public $cliColors = true;
+    public int $maxDepth           = 6;
+    public bool $displayCalledFrom = true;
+    public bool $expanded          = false;
 
     /*
     |--------------------------------------------------------------------------
-    | Application Settings
+    | RichRenderer Settings
     |--------------------------------------------------------------------------
     */
+    public string $richTheme = 'aante-light.css';
+    public bool $richFolder  = false;
+    public int $richSort     = AbstractRenderer::SORT_FULL;
 
     /**
-     * @var array<string, mixed>
+     * @var array<string, class-string<ValuePluginInterface>>|null
      */
-    public $appSettings = [
-        'Kint' => [
-            'cli_detection' => false,
-        ],
-    ];
+    public $richObjectPlugins;
+
+    /**
+     * @var array<string, class-string<TabPluginInterface>>|null
+     */
+    public $richTabPlugins;
 
     /*
     |--------------------------------------------------------------------------
-    | Renderer Settings
+    | CLI Settings
     |--------------------------------------------------------------------------
     */
-
-    /**
-     * @var array<string, array<string, mixed>>
-     */
-    public $rendererSettings = [];
-
-    /*
-    |--------------------------------------------------------------------------
-    | Plugins
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * @var array<int, array<string, class-string<ConstructablePluginInterface>|false>>
-     */
-    public $plugins = [];
+    public bool $cliColors      = true;
+    public bool $cliForceUTF8   = false;
+    public bool $cliDetectWidth = true;
+    public int $cliMinWidth     = 40;
 }
-
