@@ -58,6 +58,17 @@ class Kint
      */
     public $displayCalledFrom = true;
 
+    /**
+     * --------------------------------------------------------------------------
+     * Expanded
+     * --------------------------------------------------------------------------
+     *
+     * Whether Kint's output should be expanded by default.
+     *
+     * @var bool
+     */
+    public $expanded = false;
+
     /*
     |--------------------------------------------------------------------------
     | Application Settings
