@@ -62,6 +62,13 @@ require_once SYSTEMPATH . 'Config/DotEnv.php';
 (new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
 
 /*
+ *---------------------------------------------------------------
+ * DEFINE APPLICATION ENVIRONMENT
+ *---------------------------------------------------------------
+ */
+define('ENVIRONMENT', $_SERVER['CI_ENVIRONMENT'] ?? 'production');
+
+/*
  * ---------------------------------------------------------------
  * GRAB OUR CODEIGNITER INSTANCE
  * ---------------------------------------------------------------
