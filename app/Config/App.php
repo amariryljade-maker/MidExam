@@ -37,5 +37,17 @@ class App extends BaseConfig
     public bool $CSRFRedirect = true;
     public string $CSRFSameSite = 'Lax';
     public bool $CSPEnabled = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Allowed Hostnames
+     * --------------------------------------------------------------------------
+     *
+     * If you want to limit the host names that are considered valid for your
+     * site, list them here. An empty array means all hosts are valid.
+     *
+     * @var list<string>
+     */
+    public array $allowedHostnames = [];
 }
 

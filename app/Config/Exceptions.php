@@ -52,5 +52,26 @@ class Exceptions extends BaseConfig
      * @var list<string>
      */
     public $sensitiveDataInTrace = [];
+
+    /**
+     * --------------------------------------------------------------------------
+     * Log Deprecations Instead of Throwing?
+     * --------------------------------------------------------------------------
+     * By default, CodeIgniter converts deprecations into exceptions. If you
+     * would prefer to log them instead, set this to true.
+     *
+     * @var bool
+     */
+    public $logDeprecations = false;
+
+    /**
+     * --------------------------------------------------------------------------
+     * Deprecation Log Level
+     * --------------------------------------------------------------------------
+     * If $logDeprecations is true, this sets the log level to use for deprecations.
+     *
+     * @var string
+     */
+    public $deprecationLogLevel = 'warning';
 }
 
