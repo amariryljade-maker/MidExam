@@ -69,6 +69,17 @@ class Kint
      */
     public $expanded = false;
 
+    /**
+     * --------------------------------------------------------------------------
+     * Rich Theme
+     * --------------------------------------------------------------------------
+     *
+     * The theme to use for Kint's rich renderer.
+     *
+     * @var string
+     */
+    public $richTheme = 'aante-light.css';
+
     /*
     |--------------------------------------------------------------------------
     | Application Settings
