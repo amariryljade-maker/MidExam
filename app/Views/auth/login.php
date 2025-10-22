@@ -22,7 +22,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <form action="/login" method="post">
+                    <form action="<?= base_url('login') ?>" method="post">
                         <?= csrf_field() ?>
                         
                         <div class="mb-3">
@@ -64,7 +64,7 @@
                     <hr>
 
                     <div class="text-center">
-                        <p class="mb-0">Don't have an account? <a href="/register" class="text-decoration-none">Register here</a></p>
+                        <p class="mb-0">Don't have an account? <a href="<?= base_url('register') ?>" class="text-decoration-none">Register here</a></p>
                     </div>
 
                     <div class="mt-4 p-3 bg-light rounded">

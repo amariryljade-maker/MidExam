@@ -47,7 +47,7 @@
     <?php if (session()->has('logged_in')): ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="<?= base_url('/') ?>">
                 <i class="bi bi-mortarboard-fill"></i> RMMC Portal
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -56,25 +56,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/announcements">
+                        <a class="nav-link" href="<?= base_url('announcements') ?>">
                             <i class="bi bi-megaphone"></i> Announcements
                         </a>
                     </li>
                     <?php if (session()->get('role') === 'admin'): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard">
+                        <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">
                             <i class="bi bi-speedometer2"></i> Admin Dashboard
                         </a>
                     </li>
                     <?php elseif (session()->get('role') === 'teacher'): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/teacher/dashboard">
+                        <a class="nav-link" href="<?= base_url('teacher/dashboard') ?>">
                             <i class="bi bi-speedometer2"></i> Teacher Dashboard
                         </a>
                     </li>
                     <?php elseif (session()->get('role') === 'student'): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/student/dashboard">
+                        <a class="nav-link" href="<?= base_url('student/dashboard') ?>">
                             <i class="bi bi-speedometer2"></i> My Dashboard
                         </a>
                     </li>
@@ -89,7 +89,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('logout') ?>"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>

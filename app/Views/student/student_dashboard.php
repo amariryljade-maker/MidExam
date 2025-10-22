@@ -56,7 +56,7 @@
                             <i class="bi bi-megaphone-fill" style="font-size: 3rem; color: #17a2b8;"></i>
                             <h5 class="card-title mt-3">Announcements</h5>
                             <p class="card-text text-muted">Stay updated with latest news</p>
-                            <a href="/announcements" class="btn btn-outline-info">
+                            <a href="<?= base_url('announcements') ?>" class="btn btn-outline-info">
                                 <i class="bi bi-eye"></i> View Announcements
                             </a>
                         </div>

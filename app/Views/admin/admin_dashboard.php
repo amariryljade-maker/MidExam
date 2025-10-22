@@ -43,7 +43,7 @@
                             <i class="bi bi-megaphone-fill" style="font-size: 3rem; color: #28a745;"></i>
                             <h5 class="card-title mt-3">Announcements</h5>
                             <p class="card-text text-muted">Create and manage portal announcements</p>
-                            <a href="/announcements" class="btn btn-outline-success">
+                            <a href="<?= base_url('announcements') ?>" class="btn btn-outline-success">
                                 <i class="bi bi-eye"></i> View Announcements
                             </a>
                         </div>
