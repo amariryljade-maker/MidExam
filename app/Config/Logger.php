@@ -125,22 +125,23 @@ class Logger extends BaseConfig
          * --------------------------------------------------------------------
          * Requires the use of the Chrome web browser and the ChromeLogger extension.
          * Provides inline debugging in your browser's console.
+         * DISABLED to prevent initialization issues
          */
-        'CodeIgniter\Log\Handlers\ChromeLoggerHandler' => [
-            /*
-             * The log levels that this handler will handle.
-             */
-            'handles' => [
-                'critical',
-                'alert',
-                'emergency',
-                'debug',
-                'error',
-                'info',
-                'notice',
-                'warning',
-            ],
-        ],
+        // 'CodeIgniter\Log\Handlers\ChromeLoggerHandler' => [
+        //     /*
+        //      * The log levels that this handler will handle.
+        //      */
+        //     'handles' => [
+        //         'critical',
+        //         'alert',
+        //         'emergency',
+        //         'debug',
+        //         'error',
+        //         'info',
+        //         'notice',
+        //         'warning',
+        //     ],
+        // ],
     ];
 }
 
