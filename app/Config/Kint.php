@@ -47,6 +47,17 @@ class Kint
      */
     public $maxDepth = 6;
 
+    /**
+     * --------------------------------------------------------------------------
+     * Display Called From
+     * --------------------------------------------------------------------------
+     *
+     * Whether to display where Kint was called from.
+     *
+     * @var bool
+     */
+    public $displayCalledFrom = true;
+
     /*
     |--------------------------------------------------------------------------
     | Application Settings
