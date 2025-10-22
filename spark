@@ -1,0 +1,67 @@
+#!/usr/bin/env php
+<?php
+
+/*
+ * CodeIgniter Spark CLI Tool
+ *
+ * This is the command-line tool for running CodeIgniter commands
+ */
+
+// Refuse to run when called from php-cgi
+if (strpos(PHP_SAPI, 'cgi') === 0) {
+    exit("The cli tool is not supported when running php-cgi. It needs php-cli to function!\n\n");
+}
+
+// We want errors to be shown when using it from the CLI.
+error_reporting(-1);
+ini_set('display_errors', '1');
+
+// Set path to the front controller for the application
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR);
+
+// Ensure the current directory is pointing to the front controller's directory
+chdir(FCPATH);
+
+/*
+ *---------------------------------------------------------------
+ * BOOTSTRAP THE APPLICATION
+ *---------------------------------------------------------------
+ * This process sets up the path constants, loads and registers
+ * our autoloader, along with Composer's, loads our constants
+ * and fires up an environment-specific bootstrapping.
+ */
+
+// Load our paths config file
+require __DIR__ . '/app/Config/Paths.php';
+$paths = new Config\Paths();
+
+// Location of the framework bootstrap file.
+require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
+
+// Load environment settings from .env files if they exist
+$env = new \CodeIgniter\Config\DotEnv(ROOTPATH);
+$env->load();
+
+// Grab our CodeIgniter
+$app = Config\Services::codeigniter();
+$app->initialize();
+
+// Grab our Console
+$console = new \CodeIgniter\CLI\Console();
+
+// Show basic information
+$console->showHeader();
+
+// Run the command
+try {
+    $console->run();
+} catch (\Exception $e) {
+    CLI::write('[' . get_class($e) . ']', 'light_gray', 'red');
+    CLI::write($e->getMessage());
+    CLI::newLine();
+    CLI::write($e->getTraceAsString());
+    CLI::newLine();
+
+    exit($e->getCode());
+}
+
