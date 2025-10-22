@@ -8,6 +8,12 @@ Options -Indexes
 # Redirect all requests to the public folder
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    
+    # Exclude installer files from rewrite
+    RewriteCond %{REQUEST_URI} ^/(db_install\.php|install\.php|setup\.php|check_install\.php)
+    RewriteRule ^ - [L]
+    
+    # Redirect to public folder
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1 [L]
 </IfModule>
